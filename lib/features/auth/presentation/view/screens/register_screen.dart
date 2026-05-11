@@ -34,7 +34,7 @@ class RegisterScreen extends StatelessWidget {
         },
 
         builder: (context, state) {
-          final cubit = context.read<AuthCubit>();
+        final cubit = context.watch<AuthCubit>();
 
           return Scaffold(
             backgroundColor: const Color(0xffF8FAFC),

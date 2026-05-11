@@ -26,14 +26,14 @@ class LoginScreen extends StatelessWidget {
           }
 
           if (state is AuthError) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(state.message)),
-            );
+            ScaffoldMessenger.of(
+              context,
+            ).showSnackBar(SnackBar(content: Text(state.message)));
           }
         },
 
         builder: (context, state) {
-          final cubit = context.read<AuthCubit>();
+          final cubit = context.watch<AuthCubit>();
 
           return Scaffold(
             backgroundColor: const Color(0xffF8FAFC),

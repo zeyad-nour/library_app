@@ -1,7 +1,10 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:library_app/core/services/api_services/api_service.dart';
+import 'package:library_app/features/auth/data/repo/auth_repo.dart';
+import 'package:library_app/features/auth/data/repo/auth_repo_implement.dart';
 import 'package:library_app/features/books/data/repo/books_repo.dart';
 
 import 'core/routes/app_routes.dart';
@@ -13,8 +16,13 @@ void main() {
   runApp(
     MultiRepositoryProvider(
       providers: [
-        RepositoryProvider(
+        RepositoryProvider<BooksRepo>(
           create: (_) => BooksRepo(ApiService(Dio())),
+        ),
+
+        
+        RepositoryProvider<AuthRepo>(
+          create: (_) => AuthRepoImpl( FirebaseAuth.instance),
         ),
       ],
       child: MultiBlocProvider(
