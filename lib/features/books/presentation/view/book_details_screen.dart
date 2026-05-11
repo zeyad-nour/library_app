@@ -10,15 +10,16 @@ class BookDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bookJson =
-        ModalRoute.of(context)!.settings.arguments
-            as Map<String, dynamic>;
+    final args = ModalRoute.of(context)?.settings.arguments;
 
-    final book = ApiBookModel.fromJson(bookJson);
+    if (args == null || args is! Map<String, dynamic>) {
+      return const Scaffold(body: Center(child: Text("No book data found")));
+    }
+
+    final book = ApiBookModel.fromJson(args);
 
     return Scaffold(
       backgroundColor: const Color(0xffF8FAFC),
-
       body: Stack(
         children: [
           SingleChildScrollView(

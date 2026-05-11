@@ -52,10 +52,7 @@ class BooksListScreen extends StatelessWidget {
                           final book = books[index];
 
                           return BookGridCard(
-                            title: book.title,
-                            author: book.author,
-                            image: book.image,
-                            rating: 4.0,
+                           book: book,
                           );
                         },
                       );

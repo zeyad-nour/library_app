@@ -1,26 +1,20 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
+import 'package:library_app/features/books/data/model/api_book_model.dart';
 
 class BookGridCard extends StatelessWidget {
-  final String title;
-  final String author;
-  final String image;
-  final double rating;
-
+  final ApiBookModel book;
   const BookGridCard({
-    super.key,
-    required this.title,
-    required this.author,
-    required this.image,
-    required this.rating,
+    super.key, required this.book,
+
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, '/details');
+        Navigator.pushNamed(context, '/details', arguments: book,);
       },
 
       child: Column(
@@ -33,7 +27,7 @@ class BookGridCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(24),
 
                 image: DecorationImage(
-                  image: NetworkImage(image),
+                  image: NetworkImage(book.image),
                   fit: BoxFit.cover,
                 ),
 
@@ -51,7 +45,7 @@ class BookGridCard extends StatelessWidget {
           const SizedBox(height: 12),
 
           Text(
-            title,
+            book.title,
 
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
@@ -66,7 +60,7 @@ class BookGridCard extends StatelessWidget {
           const SizedBox(height: 4),
 
           Text(
-            author,
+            book.author,
 
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
