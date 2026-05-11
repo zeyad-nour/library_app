@@ -46,9 +46,12 @@ class AppRoutes {
             child: const HomeScreen(),
           ),
         );
-
       case books:
-        return MaterialPageRoute(builder: (_) => const BooksListScreen());
+        final category = settings.arguments as String;
+
+        return MaterialPageRoute(
+          builder: (_) => BooksListScreen(category: category),
+        );
 
       case details:
         return MaterialPageRoute(builder: (_) => const BookDetailsScreen());
