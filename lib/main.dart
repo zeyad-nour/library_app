@@ -1,5 +1,8 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:library_app/core/services/api_services/api_service.dart';
+import 'package:library_app/features/books/data/repo/books_repo.dart';
 
 import 'core/routes/app_routes.dart';
 
@@ -8,10 +11,21 @@ import 'features/profile/cubit/profile_state.dart';
 
 void main() {
   runApp(
-    BlocProvider(create: (_) => ProfileCubit(), child: const ReadoraApp()),
+    MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider(
+          create: (_) => BooksRepo(ApiService(Dio())),
+        ),
+      ],
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (_) => ProfileCubit()),
+        ],
+        child: const ReadoraApp(),
+      ),
+    ),
   );
 }
-
 class ReadoraApp extends StatelessWidget {
   const ReadoraApp({super.key});
 
@@ -19,7 +33,7 @@ class ReadoraApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ProfileCubit, ProfileState>(
       builder: (context, state) {
-        final cubit = context.read<ProfileCubit>();
+        final cubit = context.watch<ProfileCubit>();
 
         return MaterialApp(
           debugShowCheckedModeBanner: false,

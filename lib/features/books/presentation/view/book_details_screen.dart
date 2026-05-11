@@ -26,7 +26,7 @@ class BookDetailsScreen extends StatelessWidget {
               children: [
                 DetailsHeader(
                   image: book.image,
-                  isFavorite: false, 
+                  isFavorite: false,
                   onFavoriteTap: () {},
                 ),
 
