@@ -12,24 +12,30 @@ import 'core/routes/app_routes.dart';
 import 'features/profile/cubit/profile_cubit.dart';
 import 'features/profile/cubit/profile_state.dart';
 
+
+
 void main() async {
-
-
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp( 
-        options: DefaultFirebaseOptions.currentPlatform,
-
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
   );
+  final dio = Dio();
+  final apiService = ApiService(dio);
+  final firebaseAuth = FirebaseAuth.instance;
 
   runApp(
     MultiRepositoryProvider(
       providers: [
-        RepositoryProvider<BooksRepo>(
-          create: (_) => BooksRepo(ApiService(Dio())),
+        RepositoryProvider<ApiService>(
+          create: (_) => apiService,
         ),
 
         RepositoryProvider<AuthRepo>(
-          create: (_) => AuthRepoImpl(FirebaseAuth.instance),
+          create: (_) => AuthRepoImpl(firebaseAuth),
+        ),
+
+        RepositoryProvider<BooksRepo>(
+          create: (_) => BooksRepo(apiService),
         ),
       ],
       child: MultiBlocProvider(
