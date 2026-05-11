@@ -19,22 +19,18 @@ class BookGridCard extends StatelessWidget {
 
         children: [
           Expanded(
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(24),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(24),
+              child: Image.network(
+                book.image,
+                fit: BoxFit.cover,
 
-                image: DecorationImage(
-                  image: NetworkImage(book.image),
-                  fit: BoxFit.cover,
-                ),
-
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(.08),
-                    blurRadius: 10,
-                    offset: const Offset(0, 5),
-                  ),
-                ],
+                errorBuilder: (context, error, stackTrace) {
+                  return Container(
+                    color: Colors.grey.shade300,
+                    child: const Icon(Icons.book, size: 50),
+                  );
+                },
               ),
             ),
           ),
@@ -67,15 +63,10 @@ class BookGridCard extends StatelessWidget {
 
           const SizedBox(height: 6),
 
-          Row(
-            children: [
-          
-              Text(
-                book.language,
+          Text(
+            book.language,
 
-                style: const TextStyle(color: Color(0xff64748B), fontSize: 13),
-              ),
-            ],
+            style: const TextStyle(color: Color(0xff64748B), fontSize: 13),
           ),
         ],
       ),

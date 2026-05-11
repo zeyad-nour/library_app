@@ -15,12 +15,17 @@ class BooksCubit extends Cubit<BooksState> {
     emit(BooksLoading());
 
     final result = await repo.getBooksByCategory(category);
+    if (isClosed) return;
 
     result.fold(
       (failure) {
+        if (isClosed) return;
+
         emit(BooksError(message: failure.errorMessage));
       },
       (data) {
+        if (isClosed) return;
+
         books = data;
         emit(BooksSuccess(books));
       },

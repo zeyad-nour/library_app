@@ -5,13 +5,15 @@ import 'widgets/details_action_bar.dart';
 import 'widgets/details_card.dart';
 import 'widgets/details_header.dart';
 
+
+
 class BookDetailsScreen extends StatelessWidget {
-  const BookDetailsScreen({super.key});
+  final ApiBookModel book;
+
+  const BookDetailsScreen({super.key, required this.book});
 
   @override
   Widget build(BuildContext context) {
-    final book = ModalRoute.of(context)?.settings.arguments as ApiBookModel;
-
     return Scaffold(
       backgroundColor: const Color(0xffF8FAFC),
       body: Stack(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:library_app/features/books/data/model/api_book_model.dart';
 
 import '../../features/auth/screens/login_screen.dart';
 import '../../features/auth/screens/register_screen.dart';
@@ -54,7 +55,9 @@ class AppRoutes {
         );
 
       case details:
-        return MaterialPageRoute(builder: (_) => const BookDetailsScreen());
+        final book = settings.arguments as ApiBookModel;
+
+        return MaterialPageRoute(builder: (_) => BookDetailsScreen(book: book));
 
       case history:
         return MaterialPageRoute(builder: (_) => HistoryScreen());

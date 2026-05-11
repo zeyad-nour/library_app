@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:library_app/features/books/data/repo/books_repo.dart';
-import '../cubit/books_cubit.dart';
+import '../state_mangement/cubit/books_cubit.dart';
 import 'widgets/book_grid_card.dart';
 import 'widgets/books_app_bar.dart';
 
