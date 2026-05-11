@@ -6,7 +6,11 @@ class BooksInitial extends BooksState {}
 
 class BooksLoading extends BooksState {}
 
-class BooksLoaded extends BooksState {}
+class BooksSuccess extends BooksState { 
+  final List<ApiBookModel> books;
+
+  BooksSuccess(this.books);
+}
 
 class BooksError extends BooksState { 
   final String message;

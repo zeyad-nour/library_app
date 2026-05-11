@@ -22,7 +22,7 @@ class BooksCubit extends Cubit<BooksState> {
       },
       (data) {
         books = data;
-        emit(BooksLoaded());
+        emit(BooksSuccess(books));
       },
     );
   }
