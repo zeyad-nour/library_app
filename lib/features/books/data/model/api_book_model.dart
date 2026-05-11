@@ -31,8 +31,10 @@ class ApiBookModel {
       language: v['language'] ?? 'en',
       year: (v['publishedDate'] ?? '').toString(),
 
-      // 👇 أهم سطر
-      pdfUrl: json['accessInfo']?['pdf']?['downloadLink'] ?? '',
+      pdfUrl:
+          json['accessInfo']?['pdf']?['downloadLink'] ??
+          json['accessInfo']?['webReaderLink'] ??
+          '',
     );
   }
 }

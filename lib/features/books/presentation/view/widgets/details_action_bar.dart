@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:library_app/features/books/data/model/api_book_model.dart';
+import 'package:library_app/features/books/presentation/view/widgets/pdf_widget/pdf_screen.dart';
 
 class DetailsActionBar extends StatelessWidget {
   final ApiBookModel book;
@@ -51,7 +52,7 @@ class DetailsActionBar extends StatelessWidget {
                 child: ElevatedButton(
                   onPressed: () {
                     // لو مفيش PDF
-                    if (book.pdfUrl == null || book.pdfUrl.isEmpty) {
+                    if (book.pdfUrl.isEmpty) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
                           content: Text("PDF not available"),
