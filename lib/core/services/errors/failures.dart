@@ -42,7 +42,11 @@ class ServerFailuer extends Failure {
       return ServerFailuer("Internal Server Error, Please try later");
     } else if (statusCode == 503) {
       return ServerFailuer("Service temporarily unavailable.");
-    } else {
+    }else if (statusCode == 429) {
+      return ServerFailuer("The Server is Busy, Please try later");
+    }  
+    
+    else {
       return ServerFailuer("Opps there was an Error, Please try agin");
     }
   }
