@@ -10,6 +10,7 @@ class AuthRepoImpl implements AuthRepo {
   AuthRepoImpl(this.firebaseAuth);
 
   @override
+  @override
   Future<Either<Failure, void>> signIn({
     required String email,
     required String password,
@@ -21,6 +22,8 @@ class AuthRepoImpl implements AuthRepo {
       );
 
       return right(null);
+    } on FirebaseAuthException catch (e) {
+      return left(ServerFailuer(e.message ?? "Login Failed"));
     } catch (e) {
       return left(ServerFailuer(e.toString()));
     }
@@ -39,6 +42,8 @@ class AuthRepoImpl implements AuthRepo {
       );
 
       return right(null);
+    } on FirebaseAuthException catch (e) {
+      return left(ServerFailuer(e.toString()));
     } catch (e) {
       return left(ServerFailuer(e.toString()));
     }
@@ -54,6 +59,10 @@ class AuthRepoImpl implements AuthRepo {
   Future<Either<Failure, void>> isLoggedIn() async {
     final user = firebaseAuth.currentUser;
 
-    return right(user != null ? null : null);
+    if (user != null) {
+      return right(null);
+    } else {
+      return left(ServerFailuer("User not logged in"));
+    }
   }
 }
