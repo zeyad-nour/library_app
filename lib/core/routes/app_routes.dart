@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:library_app/features/books/data/model/api_book_model.dart';
 
-import '../../features/auth/screens/login_screen.dart';
-import '../../features/auth/screens/register_screen.dart';
-import '../../features/auth/screens/splash_screen.dart';
+import '../../features/auth/presentation/view/screens/login_screen.dart';
+import '../../features/auth/presentation/view/screens/register_screen.dart';
+import '../../features/auth/presentation/view/screens/splash_screen.dart';
 
 import '../../features/books/presentation/view/book_details_screen.dart';
 import '../../features/books/presentation/view/books_list_screen.dart';
