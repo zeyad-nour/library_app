@@ -25,11 +25,11 @@ class ServerFailuer extends Failure {
           dioError.response!.data,
         );
       case DioExceptionType.cancel:
-         return ServerFailuer("You`r Requst was Cancel");
+        return ServerFailuer("You`r Requst was Cancel");
       case DioExceptionType.connectionError:
-         return ServerFailuer("connection Error");
+        return ServerFailuer("connection Error");
       case DioExceptionType.unknown:
-        return   ServerFailuer("Unknown Error");
+        return ServerFailuer("Unknown Error");
     }
   }
 
@@ -40,6 +40,8 @@ class ServerFailuer extends Failure {
       return ServerFailuer("Your Request not Found, Please try later");
     } else if (statusCode == 500) {
       return ServerFailuer("Internal Server Error, Please try later");
+    } else if (statusCode == 503) {
+      return ServerFailuer("Service temporarily unavailable.");
     } else {
       return ServerFailuer("Opps there was an Error, Please try agin");
     }

@@ -9,17 +9,16 @@ class BooksRepo {
   BooksRepo(this.apiService);
 
   Future<Either<Failure, List<ApiBookModel>>> getBooksByCategory(
-      String category) async {
+    String category,
+  ) async {
     try {
       final data = await apiService.get(
         endPoint: 'volumes?q=subject:${category.toLowerCase()}',
       );
 
       final List items = data['items'] ?? [];
-
-      final books = items
-          .map((e) => ApiBookModel.fromJson(e))
-          .toList();
+      print("Iteams ====>>> $items");
+      final books = items.map((e) => ApiBookModel.fromJson(e)).toList();
 
       return Right(books);
     } catch (e) {

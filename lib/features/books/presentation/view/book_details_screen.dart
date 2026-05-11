@@ -10,13 +10,7 @@ class BookDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)?.settings.arguments;
-
-    if (args == null || args is! Map<String, dynamic>) {
-      return const Scaffold(body: Center(child: Text("No book data found")));
-    }
-
-    final book = ApiBookModel.fromJson(args);
+    final book = ModalRoute.of(context)?.settings.arguments as ApiBookModel;
 
     return Scaffold(
       backgroundColor: const Color(0xffF8FAFC),

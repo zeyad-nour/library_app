@@ -5,16 +5,13 @@ import 'package:library_app/features/books/data/model/api_book_model.dart';
 
 class BookGridCard extends StatelessWidget {
   final ApiBookModel book;
-  const BookGridCard({
-    super.key, required this.book,
-
-  });
+  const BookGridCard({super.key, required this.book});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, '/details', arguments: book,);
+        Navigator.pushNamed(context, '/details', arguments: book);
       },
 
       child: Column(
@@ -72,12 +69,9 @@ class BookGridCard extends StatelessWidget {
 
           Row(
             children: [
-              const Icon(Icons.star, color: Colors.amber, size: 18),
-
-              const SizedBox(width: 4),
-
+          
               Text(
-                "$rating",
+                book.language,
 
                 style: const TextStyle(color: Color(0xff64748B), fontSize: 13),
               ),
