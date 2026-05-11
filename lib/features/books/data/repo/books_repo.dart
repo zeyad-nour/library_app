@@ -1,4 +1,6 @@
+import 'package:dartz/dartz.dart';
 import 'package:library_app/core/services/api_services/api_service.dart';
+import 'package:library_app/core/services/errors/failures.dart';
 import 'package:library_app/features/books/data/model/api_book_model.dart';
 
 class BooksRepo {
@@ -6,15 +8,22 @@ class BooksRepo {
 
   BooksRepo(this.apiService);
 
-  Future<List<ApiBookModel>> getBooksByCategory(String category) async {
-    final data = await apiService.get(
-      endPoint: 'volumes?q=subject:${category.toLowerCase()}',
-    );
+  Future<Either<Failure, List<ApiBookModel>>> getBooksByCategory(
+      String category) async {
+    try {
+      final data = await apiService.get(
+        endPoint: 'volumes?q=subject:${category.toLowerCase()}',
+      );
 
-    final List items = data['items'] ?? [];
+      final List items = data['items'] ?? [];
 
-    return items
-        .map((e) => ApiBookModel.fromJson(e))
-        .toList();
+      final books = items
+          .map((e) => ApiBookModel.fromJson(e))
+          .toList();
+
+      return Right(books);
+    } catch (e) {
+      return Left(ServerFailuer(e.toString()));
+    }
   }
 }

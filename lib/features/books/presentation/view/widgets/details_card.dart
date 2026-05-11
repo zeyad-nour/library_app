@@ -2,11 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:library_app/features/books/data/model/api_book_model.dart';
-import 'package:library_app/models/book_model.dart';
 
-import 'details_info_row.dart';
-import 'details_rating_row.dart';
-import 'genres_wrap.dart';
 
 class DetailsCard extends StatelessWidget {
   final ApiBookModel book;

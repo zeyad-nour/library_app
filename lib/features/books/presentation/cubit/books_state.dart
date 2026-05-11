@@ -8,4 +8,8 @@ class BooksLoading extends BooksState {}
 
 class BooksLoaded extends BooksState {}
 
-class BooksError extends BooksState {}
+class BooksError extends BooksState { 
+  final String message;
+
+  BooksError({required this.message});
+}
