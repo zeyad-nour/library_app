@@ -65,7 +65,11 @@ class CategoryGrid extends StatelessWidget {
 
             return GestureDetector(
               onTap: () {
-                Navigator.pushNamed(context, '/books');
+                Navigator.pushNamed(
+                  context,
+                  '/books',
+                  arguments: category["name"],
+                );
               },
 
               child: Container(

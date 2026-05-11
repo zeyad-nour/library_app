@@ -5,8 +5,8 @@ import '../../features/auth/screens/login_screen.dart';
 import '../../features/auth/screens/register_screen.dart';
 import '../../features/auth/screens/splash_screen.dart';
 
-import '../../features/books/screens/book_details_screen.dart';
-import '../../features/books/screens/books_list_screen.dart';
+import '../../features/books/presentation/view/book_details_screen.dart';
+import '../../features/books/presentation/view/books_list_screen.dart';
 
 import '../../features/history/screens/history_screen.dart';
 

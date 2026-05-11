@@ -3,10 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../cubit/books_cubit.dart';
 
-import '../data/all_books_data.dart';
+import '../../data/all_books_data.dart';
 
-import '../widgets/book_grid_card.dart';
-import '../widgets/books_app_bar.dart';
+import 'widgets/book_grid_card.dart';
+import 'widgets/books_app_bar.dart';
 
 class BooksListScreen extends StatelessWidget {
   const BooksListScreen({super.key});

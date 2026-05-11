@@ -3,11 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../cubit/books_cubit.dart';
 
-import '../data/book_details_data.dart';
+import '../../data/book_details_data.dart';
 
-import '../widgets/details_action_bar.dart';
-import '../widgets/details_card.dart';
-import '../widgets/details_header.dart';
+import 'widgets/details_action_bar.dart';
+import 'widgets/details_card.dart';
+import 'widgets/details_header.dart';
 
 class BookDetailsScreen extends StatelessWidget {
   const BookDetailsScreen({super.key});
