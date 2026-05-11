@@ -51,9 +51,7 @@ class BooksListScreen extends StatelessWidget {
                         itemBuilder: (context, index) {
                           final book = books[index];
 
-                          return BookGridCard(
-                           book: book,
-                          );
+                          return BookGridCard(book: book);
                         },
                       );
                     }

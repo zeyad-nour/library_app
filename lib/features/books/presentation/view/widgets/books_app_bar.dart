@@ -10,7 +10,16 @@ class BooksAppBar extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 18),
 
-      color: Colors.white,
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          colors: [Color(0xff2563EB), Color(0xff60A5FA)],
+        ),
+
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(0),
+          bottomRight: Radius.circular(30),
+        ),
+      ),
 
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -24,6 +33,13 @@ class BooksAppBar extends StatelessWidget {
               color: const Color(0xffF8FAFC),
 
               borderRadius: BorderRadius.circular(14),
+              gradient: LinearGradient(
+                colors: [
+                  Color(0xff2563EB),
+                  Color(0xff2563EB),
+                  Color(0xff2563EB),
+                ],
+              ),
             ),
 
             child: IconButton(
@@ -34,7 +50,7 @@ class BooksAppBar extends StatelessWidget {
               icon: const Icon(
                 Icons.arrow_back_ios_new,
                 size: 20,
-                color: Color(0xff0F172A),
+                color: Colors.white,
               ),
             ),
           ),
@@ -45,24 +61,7 @@ class BooksAppBar extends StatelessWidget {
             style: const TextStyle(
               fontSize: 22,
               fontWeight: FontWeight.w600,
-              color: Color(0xff0F172A),
-            ),
-          ),
-
-          Container(
-            width: 45,
-            height: 45,
-
-            decoration: BoxDecoration(
-              color: const Color(0xffF8FAFC),
-
-              borderRadius: BorderRadius.circular(14),
-            ),
-
-            child: IconButton(
-              onPressed: () {},
-
-              icon: const Icon(Icons.tune, color: Color(0xff0F172A)),
+              color: Colors.white,
             ),
           ),
         ],

@@ -32,7 +32,7 @@ class BookDetailsScreen extends StatelessWidget {
             ),
           ),
 
-          const DetailsActionBar(),
+          DetailsActionBar(book: book),
         ],
       ),
     );
