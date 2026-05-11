@@ -32,6 +32,8 @@ dependencies:
   curved_navigation_bar: ^1.0.6
   dartz: ^0.10.1
   dio: ^5.9.2
+  firebase_auth: ^6.5.0
+  firebase_core: ^4.8.0
   flutter:
     sdk: flutter
   flutter_bloc: ^9.1.1
