@@ -1,35 +1,51 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:library_app/features/auth/data/repo/auth_repo.dart';
 
 part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
-  AuthCubit() : super(AuthInitial());
+  final AuthRepo authRepo;
+
+  AuthCubit(this.authRepo) : super(AuthInitial());
 
   bool showPassword = false;
 
   void togglePasswordVisibility() {
     showPassword = !showPassword;
-
     emit(AuthPasswordVisibilityChanged());
   }
 
-  void login({required String email, required String password}) {
+  Future<void> login({required String email, required String password}) async {
     emit(AuthLoading());
 
-    Future.delayed(const Duration(seconds: 1), () {
-      emit(AuthSuccess());
-    });
+    final result = await authRepo.signIn(email: email, password: password);
+
+    if (isClosed) return;
+
+    result.fold(
+      (failure) => emit(AuthError(failure.errorMessage)),
+      (_) => emit(AuthSuccess()),
+    );
   }
 
-  void register({
+  Future<void> register({
     required String name,
     required String email,
     required String password,
-  }) {
+  }) async {
     emit(AuthLoading());
 
-    Future.delayed(const Duration(seconds: 1), () {
-      emit(AuthSuccess());
-    });
+    final result = await authRepo.signUp(
+      name: name,
+      email: email,
+      password: password,
+    );
+
+    if (isClosed) return;
+
+    result.fold(
+      (failure) => emit(AuthError(failure.errorMessage)),
+      (_) => emit(AuthSuccess()),
+    );
   }
 }
