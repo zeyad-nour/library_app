@@ -1,18 +1,26 @@
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:library_app/core/services/api_services/api_service.dart';
 import 'package:library_app/features/auth/data/repo/auth_repo.dart';
 import 'package:library_app/features/auth/data/repo/auth_repo_implement.dart';
 import 'package:library_app/features/books/data/repo/books_repo.dart';
-
+import 'package:library_app/firebase_options.dart';
 import 'core/routes/app_routes.dart';
-
 import 'features/profile/cubit/profile_cubit.dart';
 import 'features/profile/cubit/profile_state.dart';
 
-void main() {
+void main() async {
+
+
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp( 
+        options: DefaultFirebaseOptions.currentPlatform,
+
+  );
+
   runApp(
     MultiRepositoryProvider(
       providers: [
@@ -20,9 +28,8 @@ void main() {
           create: (_) => BooksRepo(ApiService(Dio())),
         ),
 
-        
         RepositoryProvider<AuthRepo>(
-          create: (_) => AuthRepoImpl( FirebaseAuth.instance),
+          create: (_) => AuthRepoImpl(FirebaseAuth.instance),
         ),
       ],
       child: MultiBlocProvider(
@@ -34,9 +41,10 @@ void main() {
     ),
   );
 }
+
+
 class ReadoraApp extends StatelessWidget {
   const ReadoraApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ProfileCubit, ProfileState>(
@@ -45,15 +53,10 @@ class ReadoraApp extends StatelessWidget {
 
         return MaterialApp(
           debugShowCheckedModeBanner: false,
-
           onGenerateRoute: AppRoutes.generateRoute,
-
           initialRoute: AppRoutes.splash,
-
           themeMode: cubit.darkMode ? ThemeMode.dark : ThemeMode.light,
-
           theme: AppTheme.lightTheme,
-
           darkTheme: AppTheme.darkTheme,
         );
       },

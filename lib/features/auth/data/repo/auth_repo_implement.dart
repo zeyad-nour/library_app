@@ -5,9 +5,9 @@ import 'package:library_app/features/auth/data/repo/auth_repo.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthRepoImpl implements AuthRepo {
-  final FirebaseAuth _auth;
+  final FirebaseAuth firebaseAuth;
 
-  AuthRepoImpl(this._auth);
+  AuthRepoImpl(this.firebaseAuth);
 
   @override
   Future<Either<Failure, void>> signIn({
@@ -15,13 +15,14 @@ class AuthRepoImpl implements AuthRepo {
     required String password,
   }) async {
     try {
-      await _auth.signInWithEmailAndPassword(email: email, password: password);
+      await firebaseAuth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
 
-      return const Right(null);
-    } on FirebaseAuthException catch (e) {
-      return Left(ServerFailuer(e.message ?? "Login failed"));
+      return right(null);
     } catch (e) {
-      return Left(ServerFailuer(e.toString()));
+      return left(ServerFailuer(e.toString()));
     }
   }
 
@@ -32,38 +33,27 @@ class AuthRepoImpl implements AuthRepo {
     required String name,
   }) async {
     try {
-      final result = await _auth.createUserWithEmailAndPassword(
+      await firebaseAuth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
 
-      await result.user?.updateDisplayName(name);
-
-      return const Right(null);
-    } on FirebaseAuthException catch (e) {
-      return Left(ServerFailuer(e.message ?? "Signup failed"));
+      return right(null);
     } catch (e) {
-      return Left(ServerFailuer(e.toString()));
+      return left(ServerFailuer(e.toString()));
     }
   }
 
   @override
   Future<Either<Failure, void>> signOut() async {
-    try {
-      await _auth.signOut();
-      return const Right(null);
-    } catch (e) {
-      return Left(ServerFailuer(e.toString()));
-    }
+    await firebaseAuth.signOut();
+    return right(null);
   }
 
   @override
-  Future<Either<Failure, bool>> isLoggedIn() async {
-    try {
-      final user = _auth.currentUser;
-      return Right(user != null);
-    } catch (e) {
-      return Left(ServerFailuer(e.toString()));
-    }
+  Future<Either<Failure, void>> isLoggedIn() async {
+    final user = firebaseAuth.currentUser;
+
+    return right(user != null ? null : null);
   }
 }
