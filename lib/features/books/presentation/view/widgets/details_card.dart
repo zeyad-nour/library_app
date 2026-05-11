@@ -1,6 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
+import 'package:library_app/features/books/data/model/api_book_model.dart';
 import 'package:library_app/models/book_model.dart';
 
 import 'details_info_row.dart';
@@ -8,7 +9,7 @@ import 'details_rating_row.dart';
 import 'genres_wrap.dart';
 
 class DetailsCard extends StatelessWidget {
-  final BookModel book;
+  final ApiBookModel book;
 
   const DetailsCard({super.key, required this.book});
 
@@ -26,7 +27,6 @@ class DetailsCard extends StatelessWidget {
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(32),
-
             boxShadow: [
               BoxShadow(
                 color: Colors.black.withOpacity(.08),
@@ -53,24 +53,25 @@ class DetailsCard extends StatelessWidget {
 
               Text(
                 book.author,
-                style: const TextStyle(color: Color(0xff64748B), fontSize: 17),
+                style: const TextStyle(
+                  color: Color(0xff64748B),
+                  fontSize: 17,
+                ),
               ),
-
-              const SizedBox(height: 24),
-
-              DetailsRatingRow(book: book),
-
-              const SizedBox(height: 26),
-
-              GenresWrap(genres: book.genres),
 
               const SizedBox(height: 30),
 
-              DetailsInfoRow(title: "Publisher", value: book.publisher),
+              Text(
+                "Publisher: ${book.publisher}",
+              ),
 
-              DetailsInfoRow(title: "Language", value: book.language),
+              Text(
+                "Language: ${book.language}",
+              ),
 
-              DetailsInfoRow(title: "Year", value: book.year.toString()),
+              Text(
+                "Year: ${book.year}",
+              ),
 
               const SizedBox(height: 30),
 

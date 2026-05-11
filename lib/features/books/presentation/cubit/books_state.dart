@@ -4,4 +4,8 @@ abstract class BooksState {}
 
 class BooksInitial extends BooksState {}
 
-class BookFavoriteChanged extends BooksState {}
+class BooksLoading extends BooksState {}
+
+class BooksLoaded extends BooksState {}
+
+class BooksError extends BooksState {}

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:library_app/features/books/data/model/api_book_model.dart';
 
 import '../cubit/books_cubit.dart';
-
-import '../../data/book_details_data.dart';
-
 import 'widgets/details_action_bar.dart';
 import 'widgets/details_card.dart';
 import 'widgets/details_header.dart';
@@ -14,12 +12,18 @@ class BookDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => BooksCubit(),
+    return BlocProvider.value(
+      value: context.read<BooksCubit>(),
 
       child: BlocBuilder<BooksCubit, BooksState>(
         builder: (context, state) {
           final cubit = context.read<BooksCubit>();
+
+          final bookJson =
+              ModalRoute.of(context)!.settings.arguments
+                  as Map<String, dynamic>;
+
+          final book = ApiBookModel.fromJson(bookJson);
 
           return Scaffold(
             backgroundColor: const Color(0xffF8FAFC),
@@ -30,16 +34,12 @@ class BookDetailsScreen extends StatelessWidget {
                   child: Column(
                     children: [
                       DetailsHeader(
-                        image: bookDetails.image,
-
+                        image: book.image,
                         isFavorite: cubit.isFavorite,
-
-                        onFavoriteTap: () {
-                          cubit.toggleFavorite();
-                        },
+                        onFavoriteTap: cubit.toggleFavorite,
                       ),
 
-                      DetailsCard(book: bookDetails),
+                      DetailsCard(book: book),
                     ],
                   ),
                 ),
