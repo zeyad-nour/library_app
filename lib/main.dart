@@ -8,18 +8,16 @@ import 'package:library_app/features/auth/data/repo/auth_repo.dart';
 import 'package:library_app/features/auth/data/repo/auth_repo_implement.dart';
 import 'package:library_app/features/auth/presentation/view/screens/splash_screen.dart';
 import 'package:library_app/features/books/data/repo/books_repo.dart';
+import 'package:library_app/features/home/data/repos/recomended_repo/recomended_repo_imp.dart';
+import 'package:library_app/features/home/presentation/state_mangement/cubit/home_cubit.dart';
 import 'package:library_app/firebase_options.dart';
 import 'core/routes/app_routes.dart';
 import 'features/profile/cubit/profile_cubit.dart';
 import 'features/profile/cubit/profile_state.dart';
 
-
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   final dio = Dio();
   final apiService = ApiService(dio);
   final firebaseAuth = FirebaseAuth.instance;
@@ -27,28 +25,22 @@ void main() async {
   runApp(
     MultiRepositoryProvider(
       providers: [
-        RepositoryProvider<ApiService>(
-          create: (_) => apiService,
-        ),
+        RepositoryProvider<ApiService>(create: (_) => apiService),
 
-        RepositoryProvider<AuthRepo>(
-          create: (_) => AuthRepoImpl(firebaseAuth),
-        ),
+        RepositoryProvider<AuthRepo>(create: (_) => AuthRepoImpl(firebaseAuth)),
 
-        RepositoryProvider<BooksRepo>(
-          create: (_) => BooksRepo(apiService),
-        ),
+        RepositoryProvider<BooksRepo>(create: (_) => BooksRepo(apiService)),
       ],
       child: MultiBlocProvider(
         providers: [
           BlocProvider(create: (_) => ProfileCubit()),
+      
         ],
         child: const ReadoraApp(),
       ),
     ),
   );
 }
-
 
 class ReadoraApp extends StatelessWidget {
   const ReadoraApp({super.key});
@@ -65,9 +57,8 @@ class ReadoraApp extends StatelessWidget {
           themeMode: cubit.darkMode ? ThemeMode.dark : ThemeMode.light,
           theme: AppTheme.lightTheme,
           darkTheme: AppTheme.darkTheme,
-        home: SplashScreen(),
+          home: SplashScreen(),
         );
-        
       },
     );
   }

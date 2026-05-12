@@ -1,51 +1,61 @@
 import 'package:flutter/material.dart';
-
-import '../../../data/recomended_books.dart';
-import 'book_card.dart';
-import 'section_title.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:library_app/features/home/presentation/state_mangement/cubit/home_state.dart';
+import 'package:library_app/features/home/presentation/view/widgets/book_card.dart';
+import 'package:library_app/features/home/presentation/view/widgets/section_title.dart';
+import '../../state_mangement/cubit/home_cubit.dart';
 
 class RecommendedSection extends StatelessWidget {
   const RecommendedSection({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final books = recommendedBooks;
+    return BlocBuilder<HomeCubit, HomeState>(
+      builder: (context, state) {
+        if (state is HomeLoading) {
+          return const Center(child: CircularProgressIndicator());
+        }
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+        if (state is HomeError) {
+          return Text(state.message);
+        }
 
-      children: [
-        const SectionTitle(icon: Icons.auto_awesome, title: "Recommended"),
+        if (state is HomeLoaded) {
+          final books = state.books;
 
-        const SizedBox(height: 18),
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SectionTitle(
+                icon: Icons.auto_awesome,
+                title: "Recommended",
+              ),
 
-        SizedBox(
-          height: 270,
+              const SizedBox(height: 18),
 
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
+              SizedBox(
+                height: 270,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: books.length,
+                  itemBuilder: (context, index) {
+                    final book = books[index];
 
-            itemCount: books.length,
-
-            itemBuilder: (context, index) {
-              final book = books[index];
-
-              return GestureDetector(
-                onTap: () {
-                  Navigator.pushNamed(context, '/details');
-                },
-
-                child: BookCard(
-                  title: book.title,
-                  author: book.author,
-                  image: book.image,
-                  rating: book.rating,
+                    return BookCard(
+                      title: book.title,
+                      author: book.author,
+                      image: book.image,
+                      rating: 4.5,
+                    );
+                  },
                 ),
-              );
-            },
-          ),
-        ),
-      ],
+              ),
+            ],
+          );
+        }
+
+        return const SizedBox();
+      },
     );
   }
 }

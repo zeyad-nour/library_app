@@ -18,7 +18,7 @@ class BookCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, '/details');
+        // Navigator.pushNamed(context, '/details');
       },
 
       child: Container(
@@ -29,16 +29,13 @@ class BookCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
 
           children: [
-            Container(
-              height: 200,
-
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(24),
-
-                image: DecorationImage(
-                  image: NetworkImage(image),
-                  fit: BoxFit.cover,
-                ),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(24),
+              child: Image.network(
+                image,
+                height: 200,
+                width: double.infinity,
+                fit: BoxFit.cover,
               ),
             ),
 

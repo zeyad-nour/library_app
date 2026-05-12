@@ -15,7 +15,7 @@ class RecommendedModel {
     return RecommendedModel(
       title: v['title'] ?? '',
       author: (v['authors'] ?? ['Unknown'])[0],
-      image: v['imageLinks']?['thumbnail'] ?? '',
+      image: (v['imageLinks']?['thumbnail'] ?? '').replaceAll('http://', 'https://'),
     );
   }
 }

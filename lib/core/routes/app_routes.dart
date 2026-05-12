@@ -1,6 +1,9 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:library_app/core/services/api_services/api_service.dart';
 import 'package:library_app/features/books/data/model/api_book_model.dart';
+import 'package:library_app/features/home/data/repos/recomended_repo/recomended_repo_imp.dart';
 
 import '../../features/auth/presentation/view/screens/login_screen.dart';
 import '../../features/auth/presentation/view/screens/register_screen.dart';
@@ -36,8 +39,10 @@ class AppRoutes {
 
       case home:
         return MaterialPageRoute(
-          builder: (_) =>
-              BlocProvider(create: (_) => HomeCubit(), child: HomeScreen()),
+          builder: (_) => BlocProvider(
+            create: (_) => HomeCubit(RecomendedRepoImp(ApiService(Dio()))),
+            child: HomeScreen(),
+          ),
         );
 
       case books:

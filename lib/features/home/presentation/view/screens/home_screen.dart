@@ -1,6 +1,9 @@
+import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:library_app/core/services/api_services/api_service.dart';
+import 'package:library_app/features/home/data/repos/recomended_repo/recomended_repo_imp.dart';
 import 'package:library_app/features/home/presentation/state_mangement/cubit/home_state.dart';
 
 import '../../state_mangement/cubit/home_cubit.dart';
@@ -17,9 +20,9 @@ class HomeScreen extends StatelessWidget {
     final user = FirebaseAuth.instance.currentUser;
 
     final userName = user?.displayName ?? "User";
-
+    final cubit = HomeCubit(RecomendedRepoImp(ApiService(Dio())));
     return BlocProvider(
-      create: (context) => HomeCubit(),
+      create: (context) => HomeCubit(RecomendedRepoImp(ApiService(Dio()))),
       child: BlocBuilder<HomeCubit, HomeState>(
         builder: (context, state) {
           return Scaffold(
