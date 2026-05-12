@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:library_app/features/auth/data/repo/auth_repo.dart';
 import 'package:library_app/features/auth/presentation/view/screens/register_screen.dart';
-import 'package:library_app/features/home/widgets/main_screen.dart';
+import 'package:library_app/features/home/presentation/view/widgets/main_screen.dart';
 
 import '../../state_mangement/cubit/auth_cubit.dart';
 import '../widgets/auth_button.dart';

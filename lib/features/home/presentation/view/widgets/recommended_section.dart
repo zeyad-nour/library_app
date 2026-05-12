@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../data/recomended_books.dart';
+import '../../../data/recomended_books.dart';
 import 'book_card.dart';
 import 'section_title.dart';
 

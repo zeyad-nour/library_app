@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../../history/screens/history_screen.dart';
-import '../../home/screens/home_screen.dart';
-import '../../profile/screens/profile_screen.dart';
-import '../../search/screens/search_screen.dart';
-import '../../borrowed/screens/borrowed_screen.dart';
+import '../../../../history/screens/history_screen.dart';
+import '../screens/home_screen.dart';
+import '../../../../profile/screens/profile_screen.dart';
+import '../../../../search/screens/search_screen.dart';
+import '../../../../borrowed/screens/borrowed_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});

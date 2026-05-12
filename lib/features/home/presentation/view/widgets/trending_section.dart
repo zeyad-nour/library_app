@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../data/trending_books.dart';
+import '../../../data/trending_books.dart';
 import 'section_title.dart';
 import 'trending_book_card.dart';
 

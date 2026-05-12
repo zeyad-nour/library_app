@@ -11,8 +11,8 @@ import '../../features/books/presentation/view/books_list_screen.dart';
 
 import '../../features/history/screens/history_screen.dart';
 
-import '../../features/home/cubit/home_cubit.dart';
-import '../../features/home/screens/home_screen.dart';
+import '../../features/home/presentation/state_mangement/cubit/home_cubit.dart';
+import '../../features/home/presentation/view/screens/home_screen.dart';
 
 class AppRoutes {
   static const splash = "/";
