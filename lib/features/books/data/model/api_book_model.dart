@@ -6,7 +6,9 @@ class ApiBookModel {
   final String publisher;
   final String language;
   final String year;
+
   final String pdfUrl;
+  final String webReaderLink;
 
   ApiBookModel({
     required this.title,
@@ -17,6 +19,7 @@ class ApiBookModel {
     required this.language,
     required this.year,
     required this.pdfUrl,
+    required this.webReaderLink,
   });
 
   factory ApiBookModel.fromJson(Map<String, dynamic> json) {
@@ -32,9 +35,10 @@ class ApiBookModel {
       year: (v['publishedDate'] ?? '').toString(),
 
       pdfUrl:
-          json['accessInfo']?['pdf']?['downloadLink'] ??
-          json['accessInfo']?['webReaderLink'] ??
-          '',
+          json['accessInfo']?['pdf']?['downloadLink'] ?? '',
+
+      webReaderLink:
+          json['accessInfo']?['webReaderLink'] ?? '',
     );
   }
 }
