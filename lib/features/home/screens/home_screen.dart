@@ -1,8 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../cubit/home_cubit.dart';
-
 import '../widgets/category_grid.dart';
 import '../widgets/home_header.dart';
 import '../widgets/recommended_section.dart';
@@ -13,19 +13,21 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser;
+
+    final userName = user?.displayName ?? "User";
+
     return BlocProvider(
       create: (context) => HomeCubit(),
-
       child: BlocBuilder<HomeCubit, HomeState>(
         builder: (context, state) {
           return Scaffold(
             backgroundColor: const Color(0xffF8FAFC),
-
             body: SingleChildScrollView(
               child: Column(
-                children: const [
-                  HomeHeader(userName: ''),
-                  HomeBody(),
+                children: [
+                  HomeHeader(userName: userName),
+                  const HomeBody(),
                 ],
               ),
             ),

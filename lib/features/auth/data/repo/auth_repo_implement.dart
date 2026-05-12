@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dartz/dartz.dart';
 import 'package:library_app/core/services/errors/failures.dart';
 import 'package:library_app/features/auth/data/repo/auth_repo.dart';
@@ -51,9 +53,10 @@ class AuthRepoImpl implements AuthRepo {
         email: email,
         password: password,
       );
+      await credential.user!.updateDisplayName(name);
 
       await credential.user!.sendEmailVerification();
-      print("||||||||||||||||||||EMAIL SENT|||||||||||||||||");
+      log("||||||||||||||||||||EMAIL SENT|||||||||||||||||");
       return right(null);
     } on FirebaseAuthException catch (e) {
       return left(ServerFailuer(e.message ?? "Auth Error"));
