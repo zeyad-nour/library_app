@@ -40,6 +40,7 @@ dependencies:
   flutter_pdfview: ^1.4.4
   google_fonts: ^8.1.0
   path_provider: ^2.1.5
+  url_launcher: ^6.3.2
   webview_flutter: ^4.13.1
 
 dev_dependencies:

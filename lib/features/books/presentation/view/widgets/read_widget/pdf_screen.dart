@@ -1,9 +1,5 @@
-import 'dart:io';
-
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_pdfview/flutter_pdfview.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class PdfScreen extends StatefulWidget {
   final String pdfUrl;
@@ -18,50 +14,142 @@ class PdfScreen extends StatefulWidget {
 }
 
 class _PdfScreenState extends State<PdfScreen> {
-  String? filePath;
+  late final WebViewController controller;
 
   bool isLoading = true;
+  bool hasError = false;
 
   @override
   void initState() {
     super.initState();
 
-    loadPdf();
-  }
+    final fixedUrl = widget.pdfUrl.replaceFirst(
+      "http://",
+      "https://",
+    );
 
-  Future<void> loadPdf() async {
-    try {
-      final dir = await getTemporaryDirectory();
+    controller =
+        WebViewController()
+          ..setJavaScriptMode(JavaScriptMode.unrestricted)
+          ..setBackgroundColor(const Color(0xffF8FAFC))
+          ..setNavigationDelegate(
+            NavigationDelegate(
+              onPageStarted: (String url) {
+                setState(() {
+                  isLoading = true;
+                });
+              },
 
-      final file = File("${dir.path}/book.pdf");
+              onPageFinished: (String url) {
+                setState(() {
+                  isLoading = false;
+                });
+              },
 
-      await Dio().download(widget.pdfUrl, file.path);
-
-      setState(() {
-        filePath = file.path;
-        isLoading = false;
-      });
-    } catch (e) {
-      setState(() {
-        isLoading = false;
-      });
-    }
+              onWebResourceError: (error) {
+                setState(() {
+                  hasError = true;
+                  isLoading = false;
+                });
+              },
+            ),
+          )
+          ..loadRequest(Uri.parse(fixedUrl));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Read Book")),
+      backgroundColor: const Color(0xffF8FAFC),
 
-      body: isLoading
-          ? const Center(child: CircularProgressIndicator())
-          : filePath == null
-              ? const Center(
-                  child: Text("Failed to load PDF"),
-                )
-              : PDFView(
-                  filePath: filePath!,
+      appBar: AppBar(
+        elevation: 0,
+        centerTitle: true,
+        backgroundColor: Colors.white,
+        title: const Text(
+          "Read Book",
+          style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        iconTheme: const IconThemeData(color: Colors.black),
+      ),
+
+      body: Stack(
+        children: [
+          if (!hasError)
+            WebViewWidget(
+              controller: controller,
+            ),
+
+          if (isLoading)
+            const Center(
+              child: CircularProgressIndicator(),
+            ),
+
+          if (hasError)
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(
+                      Icons.error_outline,
+                      size: 80,
+                      color: Colors.red,
+                    ),
+
+                    const SizedBox(height: 20),
+
+                    const Text(
+                      "Failed to load book",
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+
+                    const SizedBox(height: 10),
+
+                    const Text(
+                      "This book preview is not available right now.",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 16,
+                      ),
+                    ),
+
+                    const SizedBox(height: 25),
+
+                    ElevatedButton(
+                      onPressed: () {
+                        final fixedUrl = widget.pdfUrl.replaceFirst(
+                          "http://",
+                          "https://",
+                        );
+
+                        controller.loadRequest(
+                          Uri.parse(fixedUrl),
+                        );
+
+                        setState(() {
+                          hasError = false;
+                          isLoading = true;
+                        });
+                      },
+
+                      child: const Text("Try Again"),
+                    ),
+                  ],
                 ),
+              ),
+            ),
+        ],
+      ),
     );
   }
 }

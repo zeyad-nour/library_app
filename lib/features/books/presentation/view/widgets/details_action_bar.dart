@@ -1,8 +1,10 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:library_app/features/books/data/model/api_book_model.dart';
 import 'package:library_app/features/books/presentation/view/widgets/read_widget/book_web_view.dart';
 import 'package:library_app/features/books/presentation/view/widgets/read_widget/pdf_screen.dart';
-
+import 'package:url_launcher/url_launcher.dart';
 
 class DetailsActionBar extends StatelessWidget {
   final ApiBookModel book;
@@ -11,6 +13,37 @@ class DetailsActionBar extends StatelessWidget {
     super.key,
     required this.book,
   });
+
+Future<void> openBook(BuildContext context) async {
+  // 1) لو PDF موجود
+  if (book.pdfAvailable && book.pdfLink.isNotEmpty) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => PdfScreen(pdfUrl: book.pdfLink,),
+      ),
+    );
+    return;
+  }
+
+  // 2) fallback: web reader
+  if (book.webReaderLink.isNotEmpty) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => BookWebView(url: book.webReaderLink),
+      ),
+    );
+    return;
+  }
+
+  // 3) nothing available
+  ScaffoldMessenger.of(context).showSnackBar(
+    const SnackBar(
+      content: Text("This book is not available for reading"),
+    ),
+  );
+}
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +75,6 @@ class DetailsActionBar extends StatelessWidget {
 
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(18),
-
                 border: Border.all(
                   color: const Color(0xff2563EB),
                   width: 2,
@@ -72,41 +104,7 @@ class DetailsActionBar extends StatelessWidget {
                 height: 58,
 
                 child: ElevatedButton(
-                  onPressed: () {
-                    if (book.pdfUrl.isNotEmpty) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => PdfScreen(
-                            pdfUrl: book.pdfUrl,
-                          ),
-                        ),
-                      );
-
-                      return;
-                    }
-
-                    if (book.webReaderLink.isNotEmpty) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => BookWebView(
-                            url: book.webReaderLink,
-                          ),
-                        ),
-                      );
-
-                      return;
-                    }
-
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text(
-                          "Book preview not available",
-                        ),
-                      ),
-                    );
-                  },
+                  onPressed: () => openBook(context),
 
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xff2563EB),
@@ -116,10 +114,10 @@ class DetailsActionBar extends StatelessWidget {
                     ),
                   ),
 
-                  child: Row(
+                  child: const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
 
-                    children: const [
+                    children: [
                       Icon(
                         Icons.menu_book_rounded,
                         color: Colors.white,
@@ -129,7 +127,6 @@ class DetailsActionBar extends StatelessWidget {
 
                       Text(
                         "Read Book",
-
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 17,

@@ -7,8 +7,9 @@ class ApiBookModel {
   final String language;
   final String year;
 
-  final String pdfUrl;
   final String webReaderLink;
+  final String pdfLink;
+  final bool pdfAvailable;
 
   ApiBookModel({
     required this.title,
@@ -18,12 +19,14 @@ class ApiBookModel {
     required this.publisher,
     required this.language,
     required this.year,
-    required this.pdfUrl,
     required this.webReaderLink,
+    required this.pdfLink,
+    required this.pdfAvailable,
   });
 
   factory ApiBookModel.fromJson(Map<String, dynamic> json) {
     final v = json['volumeInfo'];
+    final accessInfo = json['accessInfo'];
 
     return ApiBookModel(
       title: v['title'] ?? '',
@@ -34,11 +37,16 @@ class ApiBookModel {
       language: v['language'] ?? 'en',
       year: (v['publishedDate'] ?? '').toString(),
 
-      pdfUrl:
-          json['accessInfo']?['pdf']?['downloadLink'] ?? '',
+      webReaderLink: (accessInfo?['webReaderLink'] ?? '')
+          .toString()
+          .replaceFirst("http://", "https://"),
 
-      webReaderLink:
-          json['accessInfo']?['webReaderLink'] ?? '',
+      pdfLink:
+          accessInfo?['pdf']?['downloadLink'] ??
+          accessInfo?['pdf']?['acsTokenLink'] ??
+          '',
+
+      pdfAvailable: accessInfo?['pdf']?['isAvailable'] ?? false,
     );
   }
 }
