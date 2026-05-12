@@ -2,6 +2,30 @@
 
 import 'package:flutter/material.dart';
 
+String getGreeting() {
+  final hour = DateTime.now().hour;
+
+  if (hour < 12) {
+    return "Good Morning";
+  } else if (hour < 18) {
+    return "Good Afternoon";
+  } else {
+    return "Good Evening";
+  }
+}
+
+String getInitials(String name) {
+  if (name.trim().isEmpty) return "?";
+
+  final parts = name.trim().split(' ');
+
+  if (parts.length == 1) {
+    return parts[0][0].toUpperCase();
+  }
+
+  return (parts[0][0] + parts[1][0]).toUpperCase();
+}
+
 class HomeHeader extends StatelessWidget {
   final String userName;
   const HomeHeader({super.key, required this.userName});
@@ -33,17 +57,17 @@ class HomeHeader extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
 
-                children: const [
+                children: [
                   Text(
-                    "Good Morning",
+                    getGreeting(),
 
                     style: TextStyle(color: Colors.white70, fontSize: 15),
                   ),
 
-                  SizedBox(height: 4),
+                  const SizedBox(height: 4),
 
                   Text(
-                    "Khalid Ahmed",
+                    userName,
 
                     style: TextStyle(
                       color: Colors.white,
@@ -68,9 +92,9 @@ class HomeHeader extends StatelessWidget {
                     shape: BoxShape.circle,
                   ),
 
-                  child: const Center(
+                  child: Center(
                     child: Text(
-                      "KA",
+                      getInitials(userName),
 
                       style: TextStyle(
                         color: Colors.white,

@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:library_app/features/books/data/model/api_book_model.dart';
 
 import '../../features/auth/presentation/view/screens/login_screen.dart';
-import '../../features/auth/presentation/view/screens/register_screen.dart' ;
+import '../../features/auth/presentation/view/screens/register_screen.dart';
 import '../../features/auth/presentation/view/screens/splash_screen.dart';
 
 import '../../features/books/presentation/view/book_details_screen.dart';
@@ -26,26 +26,18 @@ class AppRoutes {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case splash:
-        return MaterialPageRoute(
-          builder: (_) => const SplashScreen(),
-        );
+        return MaterialPageRoute(builder: (_) => const SplashScreen());
 
       case login:
-        return MaterialPageRoute(
-          builder: (_) =>  LoginScreen(),
-        );
+        return MaterialPageRoute(builder: (_) => LoginScreen());
 
       case register:
-        return MaterialPageRoute(
-          builder: (_) => RegisterScreen(),
-        );
+        return MaterialPageRoute(builder: (_) => RegisterScreen());
 
       case home:
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (_) => HomeCubit(),
-            child: const HomeScreen(),
-          ),
+          builder: (_) =>
+              BlocProvider(create: (_) => HomeCubit(), child: HomeScreen()),
         );
 
       case books:
@@ -60,26 +52,20 @@ class AppRoutes {
 
         if (book is! ApiBookModel) {
           return MaterialPageRoute(
-            builder: (_) => const Scaffold(
-              body: Center(child: Text("Invalid book data")),
-            ),
+            builder: (_) =>
+                const Scaffold(body: Center(child: Text("Invalid book data"))),
           );
         }
 
-        return MaterialPageRoute(
-          builder: (_) => BookDetailsScreen(book: book),
-        );
+        return MaterialPageRoute(builder: (_) => BookDetailsScreen(book: book));
 
       case history:
-        return MaterialPageRoute(
-          builder: (_) => HistoryScreen(),
-        );
+        return MaterialPageRoute(builder: (_) => HistoryScreen());
 
       default:
         return MaterialPageRoute(
-          builder: (_) => const Scaffold(
-            body: Center(child: Text("No Route Found")),
-          ),
+          builder: (_) =>
+              const Scaffold(body: Center(child: Text("No Route Found"))),
         );
     }
   }

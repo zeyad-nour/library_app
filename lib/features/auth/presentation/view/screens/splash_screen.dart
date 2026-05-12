@@ -2,10 +2,13 @@
 
 import 'dart:async';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:library_app/features/auth/presentation/view/screens/login_screen.dart';
+import 'package:library_app/features/home/widgets/main_screen.dart';
 
 import '../widgets/splash_logo.dart';
-import 'login_screen.dart';
+
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -29,13 +32,27 @@ class _SplashScreenState extends State<SplashScreen>
       upperBound: 1.1,
     )..repeat(reverse: true);
 
-    Timer(const Duration(milliseconds: 2500), () {
+    _navigate();
+  }
+
+  void _navigate() async {
+    await Future.delayed(const Duration(milliseconds: 2500));
+
+    final user = FirebaseAuth.instance.currentUser;
+
+    if (!mounted) return;
+
+    if (user != null) {
       Navigator.pushReplacement(
         context,
-
+        MaterialPageRoute(builder: (_) => const MainScreen()),
+      );
+    } else {
+      Navigator.pushReplacement(
+        context,
         MaterialPageRoute(builder: (_) => LoginScreen()),
       );
-    });
+    }
   }
 
   @override
@@ -49,19 +66,15 @@ class _SplashScreenState extends State<SplashScreen>
     return Scaffold(
       body: Container(
         width: double.infinity,
-
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [Color(0xff2563EB), Color(0xff60A5FA)],
-
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
         ),
-
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-
           children: [
             SplashLogo(controller: controller),
 
@@ -69,7 +82,6 @@ class _SplashScreenState extends State<SplashScreen>
 
             const Text(
               "Readora",
-
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 42,
@@ -81,7 +93,6 @@ class _SplashScreenState extends State<SplashScreen>
 
             Text(
               "Your Digital Library",
-
               style: TextStyle(
                 color: Colors.white.withOpacity(.85),
                 fontSize: 18,

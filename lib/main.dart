@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:library_app/core/services/api_services/api_service.dart';
 import 'package:library_app/features/auth/data/repo/auth_repo.dart';
 import 'package:library_app/features/auth/data/repo/auth_repo_implement.dart';
+import 'package:library_app/features/auth/presentation/view/screens/splash_screen.dart';
 import 'package:library_app/features/books/data/repo/books_repo.dart';
 import 'package:library_app/firebase_options.dart';
 import 'core/routes/app_routes.dart';
@@ -64,7 +65,9 @@ class ReadoraApp extends StatelessWidget {
           themeMode: cubit.darkMode ? ThemeMode.dark : ThemeMode.light,
           theme: AppTheme.lightTheme,
           darkTheme: AppTheme.darkTheme,
+        home: SplashScreen(),
         );
+        
       },
     );
   }

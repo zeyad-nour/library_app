@@ -67,7 +67,8 @@ class AuthRepoImpl implements AuthRepo {
 
   @override
   Future<Either<Failure, void>> signOut() async {
-    await firebaseAuth.signOut();
+    await FirebaseAuth.instance.signOut();
+
     return right(null);
   }
 
