@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:library_app/features/books/data/model/api_book_model.dart';
 import 'package:library_app/features/books/presentation/view/widgets/read_widget/book_web_view.dart';
 import 'package:library_app/features/books/presentation/view/widgets/read_widget/pdf_screen.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class DetailsActionBar extends StatelessWidget {
   final ApiBookModel book;
@@ -15,18 +14,20 @@ class DetailsActionBar extends StatelessWidget {
   });
 
 Future<void> openBook(BuildContext context) async {
-  // 1) لو PDF موجود
+ 
   if (book.pdfAvailable && book.pdfLink.isNotEmpty) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (_) => PdfScreen(pdfUrl: book.pdfLink,),
-      ),
-    );
-    return;
+    if (book.pdfLink.contains(".pdf")) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => PdfScreen(pdfUrl: book.pdfLink),
+        ),
+      );
+      return;
+    }
   }
 
-  // 2) fallback: web reader
+ 
   if (book.webReaderLink.isNotEmpty) {
     Navigator.push(
       context,
@@ -37,14 +38,13 @@ Future<void> openBook(BuildContext context) async {
     return;
   }
 
-  // 3) nothing available
+
   ScaffoldMessenger.of(context).showSnackBar(
     const SnackBar(
       content: Text("This book is not available for reading"),
     ),
   );
 }
-
   @override
   Widget build(BuildContext context) {
     return Positioned(
