@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:library_app/features/auth/data/repo/auth_repo.dart';
 import 'package:library_app/features/auth/presentation/view/screens/login_screen.dart';
-import 'package:library_app/features/auth/presentation/view/screens/verification_screen.dart';
-
 import '../../state_mangement/cubit/auth_cubit.dart';
 import '../widgets/auth_button.dart';
 import '../widgets/auth_logo.dart';
@@ -37,7 +35,7 @@ class RegisterScreen extends StatelessWidget {
 
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (_) => verificationScreen()),
+              MaterialPageRoute(builder: (_) => LoginScreen()),
             );
           }
 

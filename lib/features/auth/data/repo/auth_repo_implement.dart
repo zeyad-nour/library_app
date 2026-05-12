@@ -19,7 +19,14 @@ class AuthRepoImpl implements AuthRepo {
         password: password,
       );
 
-      if (!credential.user!.emailVerified) {
+      // تحديث بيانات المستخدم
+      await credential.user!.reload();
+
+      // جلب المستخدم بعد التحديث
+      final user = firebaseAuth.currentUser;
+
+      // التحقق من تفعيل الإيميل
+      if (user != null && !user.emailVerified) {
         await firebaseAuth.signOut();
 
         return left(ServerFailuer("Please verify your email first"));
@@ -46,7 +53,7 @@ class AuthRepoImpl implements AuthRepo {
       );
 
       await credential.user!.sendEmailVerification();
-
+      print("||||||||||||||||||||EMAIL SENT|||||||||||||||||");
       return right(null);
     } on FirebaseAuthException catch (e) {
       return left(ServerFailuer(e.message ?? "Auth Error"));
