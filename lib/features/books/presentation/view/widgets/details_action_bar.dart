@@ -15,6 +15,7 @@ class DetailsActionBar extends StatelessWidget {
 
 Future<void> openBook(BuildContext context) async {
  
+ //if pdf
   if (book.pdfAvailable && book.pdfLink.isNotEmpty) {
     if (book.pdfLink.contains(".pdf")) {
       Navigator.push(
@@ -27,7 +28,7 @@ Future<void> openBook(BuildContext context) async {
     }
   }
 
- 
+ //if web
   if (book.webReaderLink.isNotEmpty) {
     Navigator.push(
       context,
@@ -38,7 +39,7 @@ Future<void> openBook(BuildContext context) async {
     return;
   }
 
-
+//
   ScaffoldMessenger.of(context).showSnackBar(
     const SnackBar(
       content: Text("This book is not available for reading"),

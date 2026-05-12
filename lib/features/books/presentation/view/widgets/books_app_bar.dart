@@ -16,7 +16,7 @@ class BooksAppBar extends StatelessWidget {
         ),
 
         borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(15),
+          bottomLeft: Radius.circular(0),
           bottomRight: Radius.circular(30),
         ),
       ),
