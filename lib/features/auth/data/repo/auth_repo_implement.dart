@@ -8,22 +8,26 @@ class AuthRepoImpl implements AuthRepo {
   final FirebaseAuth firebaseAuth;
 
   AuthRepoImpl(this.firebaseAuth);
-
-  @override
   @override
   Future<Either<Failure, void>> signIn({
     required String email,
     required String password,
   }) async {
     try {
-      await firebaseAuth.signInWithEmailAndPassword(
+      final credential = await firebaseAuth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
 
+      if (!credential.user!.emailVerified) {
+        await firebaseAuth.signOut();
+
+        return left(ServerFailuer("Please verify your email first"));
+      }
+
       return right(null);
     } on FirebaseAuthException catch (e) {
-      return left(ServerFailuer(e.message ?? "Login Failed"));
+      return left(ServerFailuer(e.message ?? "Auth Error"));
     } catch (e) {
       return left(ServerFailuer(e.toString()));
     }
@@ -36,14 +40,16 @@ class AuthRepoImpl implements AuthRepo {
     required String name,
   }) async {
     try {
-      await firebaseAuth.createUserWithEmailAndPassword(
+      final credential = await firebaseAuth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
 
+      await credential.user!.sendEmailVerification();
+
       return right(null);
     } on FirebaseAuthException catch (e) {
-      return left(ServerFailuer(e.toString()));
+      return left(ServerFailuer(e.message ?? "Auth Error"));
     } catch (e) {
       return left(ServerFailuer(e.toString()));
     }

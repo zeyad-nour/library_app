@@ -1,6 +1,9 @@
+// ignore_for_file: avoid_types_as_parameter_names, non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:library_app/features/auth/data/repo/auth_repo.dart';
+import 'package:library_app/features/auth/presentation/view/screens/register_screen.dart';
 
 import '../../state_mangement/cubit/auth_cubit.dart';
 import '../widgets/auth_button.dart';
@@ -65,6 +68,20 @@ class LoginScreen extends StatelessWidget {
                     ),
 
                     const SizedBox(height: 20),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(
+                            builder: (context) => RegisterScreen(),
+                          ),
+                          (Route) => false,
+                        );
+                      },
+                      child: Text(
+                        "I don`t have account",
+                        style: TextStyle(color: Colors.blue),
+                      ),
+                    ),
 
                     state is AuthLoading
                         ? const CircularProgressIndicator()
@@ -72,8 +89,8 @@ class LoginScreen extends StatelessWidget {
                             text: "Sign In",
                             onTap: () {
                               cubit.login(
-                                email: emailController.text,
-                                password: passwordController.text,
+                                email: emailController.text.trim(),
+                                password: passwordController.text.trim(),
                               );
                             },
                           ),
