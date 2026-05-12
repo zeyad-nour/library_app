@@ -1,6 +1,6 @@
 final profileData = {
-  "name": "Khalid Ahmed",
-  "email": "Khalid@gmail.com",
+  "name": "Zeyad Ahmed Nour",
+  "email": "zezoflutter2025@gmail.com",
   "image": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400",
 
   "stats": [
