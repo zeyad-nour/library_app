@@ -56,6 +56,20 @@ The app provides a smooth experience for browsing, searching, and managing books
 
 ---
 
+###  Book
+
+<p align="center">
+  <img src="assets/screens_shots/books.png" width="250"/>
+</p>
+
+---
+###  Details
+
+<p align="center">
+  <img src="assets/screens_shots/details.png" width="250"/>
+</p>
+
+---
 ### 🔍 Search
 
 <p align="center">

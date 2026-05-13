@@ -8,8 +8,6 @@ import 'package:library_app/features/auth/data/repo/auth_repo.dart';
 import 'package:library_app/features/auth/data/repo/auth_repo_implement.dart';
 import 'package:library_app/features/auth/presentation/view/screens/splash_screen.dart';
 import 'package:library_app/features/books/data/repo/books_repo.dart';
-import 'package:library_app/features/home/data/repos/recomended_repo/recomended_repo_imp.dart';
-import 'package:library_app/features/home/presentation/state_mangement/cubit/home_cubit.dart';
 import 'package:library_app/firebase_options.dart';
 import 'core/routes/app_routes.dart';
 import 'features/profile/cubit/profile_cubit.dart';
