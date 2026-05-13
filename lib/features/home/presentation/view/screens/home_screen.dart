@@ -20,9 +20,8 @@ class HomeScreen extends StatelessWidget {
     final user = FirebaseAuth.instance.currentUser;
 
     final userName = user?.displayName ?? "User";
-    final cubit = HomeCubit(RecomendedRepoImp(ApiService(Dio())));
     return BlocProvider(
-      create: (context) => HomeCubit(RecomendedRepoImp(ApiService(Dio()))),
+      create: (context) => HomeCubit(RecomendedRepoImp(ApiService(Dio())))..loadHome(),
       child: BlocBuilder<HomeCubit, HomeState>(
         builder: (context, state) {
           return Scaffold(
