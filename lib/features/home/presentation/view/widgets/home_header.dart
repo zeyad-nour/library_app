@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:library_app/features/profile/screens/profile_screen.dart';
+import 'package:library_app/features/search/screens/search_screen.dart';
 
 String getGreeting() {
   final hour = DateTime.now().hour;
@@ -116,7 +117,10 @@ class HomeHeader extends StatelessWidget {
 
           GestureDetector(
             onTap: () {
-              Navigator.pushNamed(context, '/search');
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => SearchScreen()),
+              );
             },
 
             child: Container(

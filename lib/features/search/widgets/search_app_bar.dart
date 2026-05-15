@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:library_app/features/home/presentation/view/widgets/main_screen.dart';
 
 class SearchAppBar extends StatelessWidget {
   final TextEditingController controller;
@@ -30,7 +31,11 @@ class SearchAppBar extends StatelessWidget {
 
             child: IconButton(
               onPressed: () {
-                Navigator.pop(context);
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => MainScreen()),
+                  (route) => false,
+                );
               },
 
               icon: const Icon(
