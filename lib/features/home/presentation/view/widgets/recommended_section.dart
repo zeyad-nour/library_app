@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:library_app/core/widgets/loading_widget.dart';
 import 'package:library_app/features/home/presentation/state_mangement/cubit/home_state.dart';
 import 'package:library_app/features/home/presentation/view/widgets/book_card.dart';
 import 'package:library_app/features/home/presentation/view/widgets/section_title.dart';
@@ -13,7 +14,7 @@ class RecommendedSection extends StatelessWidget {
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
         if (state is HomeLoading) {
-          return const Center(child: CircularProgressIndicator());
+          return const Center(child: LoadingWidget());
         }
 
         if (state is HomeError) {

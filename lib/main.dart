@@ -32,7 +32,6 @@ void main() async {
       child: MultiBlocProvider(
         providers: [
           BlocProvider(create: (_) => ProfileCubit()),
-      
         ],
         child: const ReadoraApp(),
       ),
