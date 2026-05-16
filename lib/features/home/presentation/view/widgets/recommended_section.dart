@@ -35,12 +35,13 @@ class RecommendedSection extends StatelessWidget {
               const SizedBox(height: 18),
 
               SizedBox(
-                height: MediaQuery.sizeOf(context).height * 0.3,
+                height: 290,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: books.length,
                   itemBuilder: (context, index) {
                     final book = books[index];
+
                     return BookCard(
                       title: book.title,
                       author: book.author,
