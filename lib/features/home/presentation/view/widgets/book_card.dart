@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 class BookCard extends StatelessWidget {
@@ -18,7 +20,7 @@ class BookCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // Navigator.pushNamed(context, '/details');
+        log("Book card tapped");
       },
 
       child: Container(

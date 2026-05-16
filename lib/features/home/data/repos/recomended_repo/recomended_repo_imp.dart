@@ -10,7 +10,7 @@ class RecomendedRepoImp extends RecommendedRepo{
   Future<Either<Failure, List<RecommendedModel>>> getRecommendedBooks()async {
      try {
       final data = await apiService.get(
-        endPoint: "volumes?q=subject:programming",
+        endPoint: "volumes?q=subject:flutter",
       );
 
       final List items = data['items'] ?? [];
