@@ -18,22 +18,26 @@ class BookGridCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
 
         children: [
-          Expanded(
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(24),
-              child: Image.network(
-                book.image,
-                fit: BoxFit.cover,
-
-                errorBuilder: (context, error, stackTrace) {
-                  return Container(
-                    color: Colors.grey.shade300,
-                    child: const Icon(Icons.book, size: 50),
-                  );
-                },
-              ),
-            ),
+       Expanded(
+  child: ClipRRect(
+    borderRadius: BorderRadius.circular(24),
+    child: (book.image.isNotEmpty)
+        ? Image.network(
+            book.image,
+            fit: BoxFit.cover,
+            errorBuilder: (context, error, stackTrace) {
+              return Container(
+                color: Colors.grey.shade300,
+                child: const Icon(Icons.book, size: 50),
+              );
+            },
+          )
+        : Container(
+            color: Colors.grey.shade300,
+            child: const Icon(Icons.book, size: 50),
           ),
+  ),
+),
 
           const SizedBox(height: 12),
 
