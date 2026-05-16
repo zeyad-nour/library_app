@@ -27,7 +27,7 @@ class _SplashScreenState extends State<SplashScreen>
 
     controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 1200),
+      duration: const Duration(milliseconds: 2300),
       lowerBound: 0.9,
       upperBound: 1.1,
     )..repeat(reverse: true);
@@ -36,7 +36,7 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
   void _navigate() async {
-    await Future.delayed(const Duration(milliseconds: 2500));
+    await Future.delayed(const Duration(milliseconds: 3000));
 
     final user = FirebaseAuth.instance.currentUser;
 
